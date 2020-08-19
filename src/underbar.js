@@ -336,6 +336,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    return setTimeout.apply(this, arguments);
   };
 
 
@@ -350,6 +351,16 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var copy = array.slice();
+    var result = [];
+
+    _.each(array, function(value) {
+      // genrates a random index
+      var random = Math.floor(Math.random() * copy.length);
+      // using random index as an argurmnt to splice to copy and pushing it to result
+      result.push(copy.splice(random, 1)[0]);
+    });
+    return result;
   };
 
 
