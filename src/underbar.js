@@ -91,6 +91,7 @@
       if (test(values)) {
         result.push(values);
       }
+
     });
     return result;
   };
@@ -108,7 +109,23 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-
+    var result = [];
+    var temp = [];
+    if (isSorted) {
+      _.each(array, function(value) {
+        if (_.indexOf(temp, iterator(value)) === -1) {
+          temp.push(iterator(value));
+          result.push(value);
+        }
+      });
+    } else {
+      _.each(array, function(value) {
+        if (_.indexOf(result, value) === -1) {
+          result.push(value);
+        }
+      });
+    }
+    return result;
   };
 
 
